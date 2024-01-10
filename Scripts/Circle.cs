@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 
 public class Circle : MonoBehaviour
 {
-    private Vector3[] RealPos;
-    private Vector3[] ObservedPos;
-    
-    private LineRenderer lineR;
-    private LineRenderer lineO;
+    private Vector3[] RealPos; // Real coordinates of points on the expanding circle
+    private Vector3[] ObservedPos;// Observed coordinates of points on the expanding circle by observer
+
+    // line provides each point on circle appear like a continuous circle 
+    private LineRenderer lineR; // Line Real
+    private LineRenderer lineO; // Line Observed
 
     public Transform Observer;
-    public int N;
+    public int N; // point count in circle. A higher N value provides a higher image resolution
     public float InitialRadius;
     public float SpeedOfLight;
-    public float SpeedOfExpansion;
-    public float LineWidth = 0.2f;
+    public float SpeedOfExpansion; // Expansion speed of circle
+    public float LineWidth = 0.2f; 
 
     public TextMeshProUGUI ABRatio;
 
@@ -33,9 +33,9 @@ public class Circle : MonoBehaviour
 
         for (int i = 0; i < N; i++)
         {
-            float angle = 2 * Mathf.PI / N * i;
-            RealPos[i] = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * InitialRadius;
-            lineR.SetPosition(i, RealPos[i]);
+            float angle = 2 * Mathf.PI / N * i; // Circle divided into N circle slice. "angle" is the angle between 0 and i th slice in radians.
+            RealPos[i] = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * InitialRadius; // transformation polar coordinates to cartesian coordinates
+            lineR.SetPosition(i, RealPos[i]); 
         }
         lineR.SetPosition(N, RealPos[0]);
 
